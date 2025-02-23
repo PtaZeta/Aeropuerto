@@ -37,17 +37,14 @@ class ReservaController extends Controller
             'asientos.*' => 'integer|min:1|max:' . $vuelo->plazas_totales,
         ]);
 
-        // Obtener los asientos ya reservados
         $asientosReservados = $vuelo->users()->pluck('user_vuelo.numero_asientos')->toArray();
 
-        // Validar que los asientos seleccionados no estén ya ocupados
         foreach ($request->asientos as $asiento) {
             if (in_array($asiento, $asientosReservados)) {
                 return back()->withErrors(['asientos' => 'Uno o más asientos ya están reservados.'])->withInput();
             }
         }
 
-        // Registrar los asientos en la tabla pivote `user_vuelo`
         foreach ($request->asientos as $asiento) {
             Auth::user()->vuelos()->attach($vuelo->id, [
                 'numero_asientos' => $asiento,
