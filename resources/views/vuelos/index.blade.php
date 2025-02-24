@@ -23,6 +23,7 @@
                 </thead>
                 <tbody>
                     @foreach ($vuelos as $vuelo)
+                        @if($vuelo->total($vuelo) > 0)
                         <tr class="bg-gray-800 border-b border-gray-700">
                             <td class="px-6 py-4">{{ $vuelo->codigo }}</td>
                             <td class="px-6 py-4">{{ $vuelo->origen }}</td>
@@ -43,6 +44,7 @@
                                 </form>
                             </td>
                         </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>

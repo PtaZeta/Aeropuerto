@@ -26,4 +26,9 @@ class Vuelo extends Model
     {
         return Carbon::parse($fecha)->format('H:i d/m/Y');
     }
+
+    public function total($vuelo)
+    {
+        return $vuelo->plazas_totales - $vuelo->users_count;
+    }
 }

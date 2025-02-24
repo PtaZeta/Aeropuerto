@@ -41,6 +41,11 @@ class ReservaController extends Controller
         ]);
 
         $asientosReservados = $vuelo->users()->pluck('user_vuelo.numero_asientos')->toArray();
+        // dd($asientosReservados);
+        // dd(array_unique($request->asientos));
+        if (count($request->asientos) !== count(array_unique($request->asientos))) {
+            return back()->withErrors(['asientos' => 'No se pueden reservar asientos duplicados.'])->withInput();
+        }
 
         foreach ($request->asientos as $asiento) {
             if (in_array($asiento, $asientosReservados)) {
