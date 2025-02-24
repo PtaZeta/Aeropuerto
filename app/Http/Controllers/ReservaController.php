@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reserva;
+use App\Models\User;
 use App\Models\Vuelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +13,7 @@ class ReservaController extends Controller
     public function index()
     {
         $vuelos = Auth::user()->vuelos;
+
 
         return view('reservas.index', compact('vuelos'));
     }
@@ -23,7 +26,7 @@ class ReservaController extends Controller
 
     public function create(Vuelo $vuelo)
     {
-        $asientosReservados = $vuelo->users->pluck('user_vuelo.numero_asientos')->toArray();
+        $asientosReservados = $vuelo->users()->pluck('user_vuelo.numero_asientos')->toArray();
 
         $asientosLibres = array_diff(range(1, $vuelo->plazas_totales), $asientosReservados);
 

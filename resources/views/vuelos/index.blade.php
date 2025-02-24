@@ -28,8 +28,11 @@
                             <td class="px-6 py-4">{{ $vuelo->origen }}</td>
                             <td class="px-6 py-4">{{ $vuelo->destino }}</td>
                             <td class="px-6 py-4">{{ $vuelo->airline }}</td>
-                            <td class="px-6 py-4">{{ \Carbon\Carbon::parse($vuelo->fecha_salida)->format('H:i d/m/Y') }}</td>
-                            <td class="px-6 py-4">{{ \Carbon\Carbon::parse($vuelo->fecha_llegada)->format('H:i d/m/Y') }}</td>
+                            {{-- @php
+                                dd($vuelo->formatearFecha($vuelo->fecha_salida));
+                            @endphp --}}
+                            <td class="px-6 py-4">{{ $vuelo->formatearFecha($vuelo->fecha_salida) }}</td>
+                            <td class="px-6 py-4">{{ $vuelo->formatearFecha($vuelo->fecha_llegada)}}</td>
                             <td class="px-6 py-4 text-center">{{ $vuelo->plazas_totales - $vuelo->users_count }}</td>
                             <td class="px-6 py-4">${{ $vuelo->precio }}</td>
                             <td class="px-6 py-4">

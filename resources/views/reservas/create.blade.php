@@ -5,11 +5,14 @@
             <form method="POST" action="{{ route('reservas.store', $vuelo) }}">
                 @csrf
                 <p class="text-white">Seleccionaste {{ request('cantidad_asientos') }} asiento(s).</p>
-
+                {{-- @php
+                                dump($asientosLibres);
+                            @endphp --}}
                 @for ($i = 1; $i <= request('cantidad_asientos'); $i++)
                     <div class="mb-4">
                         <label class="block text-white">Asiento {{ $i }}:</label>
                         <select name="asientos[]" class="w-full p-2 rounded bg-gray-700 text-white">
+
                             @foreach ($asientosLibres as $asiento)
                                 <option value="{{ $asiento }}">{{ $asiento }}</option>
                             @endforeach
